@@ -14,8 +14,8 @@ extension String {
     }
 }
 
-class CalculatorBrain {
-    var result:String = "0"
+class CalculatorBrain: ObservableObject {
+    @Published var result:String = "0"
     var tokenList:[String]  = []
     
     private let buttonCodeVertical: [[String]] = [
@@ -40,10 +40,10 @@ class CalculatorBrain {
     
     func inputToken(input:String) {
         tokenList.append(input)
-        cal()
+        calculate()
     }
     
-    func cal() {
+    func calculate() {
         var ret:String = ""
         for token in tokenList {
             ret += token
@@ -54,12 +54,12 @@ class CalculatorBrain {
 
 
 struct ContentView: View {
-    private var brain: CalculatorBrain = CalculatorBrain()
-    @State private var result:String = "0"
+    @ObservedObject private var brain: CalculatorBrain = CalculatorBrain()
+    //@State private var result:String = "0"
     
     func inputToken(token:String) {
         brain.inputToken(input: token)
-        result = brain.result
+      //  result = brain.result
     }
     
     var body: some View {
@@ -70,7 +70,7 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text(result)
+                    Text(brain.result)
                         .padding()
                         .font(.system(size: 73))
                         .foregroundColor(.white)
