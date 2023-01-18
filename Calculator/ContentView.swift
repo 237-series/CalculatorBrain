@@ -23,7 +23,7 @@ class CalculatorBrain: ObservableObject {
         ["7", "8", "9", "×"],
         ["4", "5", "6", "−"],
         ["1", "2", "3", "+"],
-        ["0", "0", ",", "="]
+        ["0", ".", "="]
     ]
     
     private let buttonCodeHorizontal: [[String]] = [
@@ -31,7 +31,7 @@ class CalculatorBrain: ObservableObject {
         ["2nd", "x²",   "x³",   "xʸ",   "eˣ",   "10ˣ",  "7",    "8",    "9",    "×"],
         ["√x",  "2/x",  "3/x",  "y/x",  "ln",   "log10","4",    "5",    "6",    "−"],
         ["x!",  "sin",  "cos",  "tan",  "e",    "EE",   "1",    "2",    "3",    "+"],
-        ["Rad", "sinh", "cosh", "tanh", "pi",   "Rand", "0",    "0",    ",",    "="]
+        ["Rad", "sinh", "cosh", "tanh", "pi",   "Rand", "0",    "0",    ".",    "="]
     ]
     
     func getButtonCodeList()->[[String]] {
@@ -74,6 +74,8 @@ struct ContentView: View {
                         .padding()
                         .font(.system(size: 73))
                         .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                 }
                 ForEach(Array(brain.getButtonCodeList().enumerated()), id: \.offset) {vIdx, line in
                     HStack {
@@ -81,7 +83,9 @@ struct ContentView: View {
                         ForEach(Array(line.enumerated()), id: \.offset) {hIdx, buttonTitle in
                             Button(action: {inputToken(token: buttonTitle)}) {
                                 Text(buttonTitle)
-                                    .frame(width: 80, height: 80)
+                                    .frame(
+                                        width: (buttonTitle == "0" ? 170 : 80),
+                                        height: 80)
                                     .background(hIdx == hLast ? .orange :
                                                     vIdx == 0 ? .gray : .secondary)
                                     .cornerRadius(40)
