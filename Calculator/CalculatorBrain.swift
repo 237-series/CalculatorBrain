@@ -47,7 +47,14 @@ class CalculatorModel: ObservableObject {
     
     private var operations: Dictionary<String, Operation> = [
         "±" : Operation.unaryOperation(changeSign),
-        "×" : Operation.binaryOperation(multiply),
+        "%" : Operation.unaryOperation({$0 / 100.0}),
+        "×" : Operation.binaryOperation({($0 * $1)}),
+        "+" : Operation.binaryOperation({($0 + $1)}),
+        "-" : Operation.binaryOperation({($0 - $1)}),
+        "÷" : Operation.binaryOperation({($0 / $1)}),
+/*      "×" : Operation.binaryOperation({ (op1: Double, op2: Double) -> Double in
+                return op1 * op2
+        }*/
         "=" : Operation.equals
     ]
     
