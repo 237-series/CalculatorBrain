@@ -7,6 +7,14 @@
 
 import Foundation
 
+func changeSign(operand: Double)->Double {
+    return -operand
+}
+
+func multiply(op1: Double, op2: Double) -> Double {
+    return op1 * op2
+}
+
 class CalculatorModel: ObservableObject {
     
     @Published var displayValue:String = "0"
@@ -31,6 +39,18 @@ class CalculatorModel: ObservableObject {
         return buttonCodeVertical
     }
     
+    private enum Operation {
+        case unaryOperation((Double) -> Double)
+        case binaryOperation((Double, Double) -> Double)
+        case equals
+    }
+    
+    private var operations: Dictionary<String, Operation> = [
+        "±" : Operation.unaryOperation(changeSign),
+        "×" : Operation.binaryOperation(multiply),
+        "=" : Operation.equals
+    ]
+    
     
     func inputToken(input:String) {
         
@@ -43,7 +63,9 @@ class CalculatorModel: ObservableObject {
                 userIsInTheMiddleOfTyping = false
             }
             performOperation(input)
-            displayValue = String(result)
+            if let value = result {
+                displayValue = String(value)
+            }
         }
     }
     
@@ -62,16 +84,50 @@ class CalculatorModel: ObservableObject {
     private var userIsInTheMiddleOfTyping = false
     
     private func performOperation(_ symbol: String) {
-        userIsInTheMiddleOfTyping = false
+        if let operation = operations[symbol] {
+            switch operation {
+            case .unaryOperation(let function):
+                if accumulator != nil {
+                    accumulator = function(accumulator!)
+                }
+            case .binaryOperation(let function):
+                if accumulator != nil {
+                    pbo = PendingBinaryOperation(function: function, firstOperand: accumulator!)
+                    accumulator = nil
+                }
+            case .equals:
+                performPendingbinaryOperation()
+            }
+        }
+    }
+    
+    private func performPendingbinaryOperation() {
+//        pbo?.perform(with: accumulator!)
+        if pbo != nil && accumulator != nil {
+            accumulator = pbo!.perform(with: accumulator!)
+            pbo = nil
+        }
+    }
+    
+    private var pbo: PendingBinaryOperation?
+    
+    private struct PendingBinaryOperation {
+        let function: (Double, Double) -> Double
+        let firstOperand : Double
+        
+        func perform(with secondOperand: Double) -> Double {
+//            return firstOperand * secondOperand
+            return function(firstOperand, secondOperand)
+        }
     }
     
     private func setOperand(operand: Double) {
         accumulator = operand
     }
     
-    private var result: Double {
+    private var result: Double? {
         get {
-            return accumulator!
+            return accumulator
         }
     }
     
