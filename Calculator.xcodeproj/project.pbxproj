@@ -11,6 +11,7 @@
 		231DF0602977B0A800B8F1DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DF05F2977B0A800B8F1DA /* ContentView.swift */; };
 		231DF0622977B0A800B8F1DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 231DF0612977B0A800B8F1DA /* Assets.xcassets */; };
 		231DF0652977B0A800B8F1DA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 231DF0642977B0A800B8F1DA /* Preview Assets.xcassets */; };
+		23AD8359298110CE00CB3598 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AD8358298110CE00CB3598 /* CalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		231DF05F2977B0A800B8F1DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		231DF0612977B0A800B8F1DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		231DF0642977B0A800B8F1DA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		23AD8358298110CE00CB3598 /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 				231DF05F2977B0A800B8F1DA /* ContentView.swift */,
 				231DF0612977B0A800B8F1DA /* Assets.xcassets */,
 				231DF0632977B0A800B8F1DA /* Preview Content */,
+				23AD8358298110CE00CB3598 /* CalculatorBrain.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23AD8359298110CE00CB3598 /* CalculatorBrain.swift in Sources */,
 				231DF0602977B0A800B8F1DA /* ContentView.swift in Sources */,
 				231DF05E2977B0A800B8F1DA /* CalculatorApp.swift in Sources */,
 			);

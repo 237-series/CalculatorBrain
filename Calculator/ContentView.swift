@@ -14,7 +14,7 @@ extension String {
     }
 }
 
-class CalculatorBrain: ObservableObject {
+class CalculatorModel: ObservableObject {
     @Published var result:String = "0"
     var tokenList:[String]  = []
     
@@ -54,7 +54,7 @@ class CalculatorBrain: ObservableObject {
 
 
 struct ContentView: View {
-    @ObservedObject private var brain: CalculatorBrain = CalculatorBrain()
+    @ObservedObject private var brain: CalculatorModel = CalculatorModel()
     //@State private var result:String = "0"
     
     func inputToken(token:String) {
