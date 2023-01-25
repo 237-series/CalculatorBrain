@@ -7,21 +7,67 @@
 
 import Foundation
 
-struct CalculatorBrain {
+class CalculatorModel: ObservableObject {
+    
+    @Published var displayValue:String = "0"
+    
+    private let buttonCodeVertical: [[String]] = [
+        ["C", "±", "%", "÷"],
+        ["7", "8", "9", "×"],
+        ["4", "5", "6", "−"],
+        ["1", "2", "3", "+"],
+        ["0", ".", "="]
+    ]
+    
+    private let buttonCodeHorizontal: [[String]] = [
+        ["(",   ")",    "mc",   "m+",   "m-",   "mr",   "C",    "±",    "%",    "÷"],
+        ["2nd", "x²",   "x³",   "xʸ",   "eˣ",   "10ˣ",  "7",    "8",    "9",    "×"],
+        ["√x",  "2/x",  "3/x",  "y/x",  "ln",   "log10","4",    "5",    "6",    "−"],
+        ["x!",  "sin",  "cos",  "tan",  "e",    "EE",   "1",    "2",    "3",    "+"],
+        ["Rad", "sinh", "cosh", "tanh", "pi",   "Rand", "0",    "0",    ".",    "="]
+    ]
+    
+    func getButtonCodeList()->[[String]] {
+        return buttonCodeVertical
+    }
+    
+    func inputToken(input:String) {
+        
+        if let _ = Int(input) {
+            inputDigit(input: input)
+        }
+        else {
+            performOperation(input)
+        }
+    }
+    
+    private func inputDigit(input:String) {
+        if userIsInTheMiddleOfTyping {
+            let textCurrentlyInDisplay = displayValue
+            displayValue = textCurrentlyInDisplay + input
+        } else {
+            displayValue = input
+            userIsInTheMiddleOfTyping = true
+        }
+    }
     
     private var accumulator: Double?
     
-    func performOperation(_ symbol: String) {
-
+    private var userIsInTheMiddleOfTyping = false
+    
+    private func performOperation(_ symbol: String) {
+        userIsInTheMiddleOfTyping = false
     }
     
-    mutating func setOperand(operand: Double) {
+    private func setOperand(operand: Double) {
         accumulator = operand
     }
     
-    var result: Double {
+    private var result: Double {
         get {
             return accumulator!
         }
     }
+    
+    
 }

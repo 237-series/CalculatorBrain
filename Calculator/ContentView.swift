@@ -14,43 +14,6 @@ extension String {
     }
 }
 
-class CalculatorModel: ObservableObject {
-    @Published var result:String = "0"
-    var tokenList:[String]  = []
-    
-    private let buttonCodeVertical: [[String]] = [
-        ["C", "±", "%", "÷"],
-        ["7", "8", "9", "×"],
-        ["4", "5", "6", "−"],
-        ["1", "2", "3", "+"],
-        ["0", ".", "="]
-    ]
-    
-    private let buttonCodeHorizontal: [[String]] = [
-        ["(",   ")",    "mc",   "m+",   "m-",   "mr",   "C",    "±",    "%",    "÷"],
-        ["2nd", "x²",   "x³",   "xʸ",   "eˣ",   "10ˣ",  "7",    "8",    "9",    "×"],
-        ["√x",  "2/x",  "3/x",  "y/x",  "ln",   "log10","4",    "5",    "6",    "−"],
-        ["x!",  "sin",  "cos",  "tan",  "e",    "EE",   "1",    "2",    "3",    "+"],
-        ["Rad", "sinh", "cosh", "tanh", "pi",   "Rand", "0",    "0",    ".",    "="]
-    ]
-    
-    func getButtonCodeList()->[[String]] {
-        return buttonCodeVertical
-    }
-    
-    func inputToken(input:String) {
-        tokenList.append(input)
-        calculate()
-    }
-    
-    func calculate() {
-        var ret:String = ""
-        for token in tokenList {
-            ret += token
-        }
-        result = ret
-    }
-}
 
 
 struct ContentView: View {
@@ -70,7 +33,7 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text(brain.result)
+                    Text(brain.displayValue)
                         .padding()
                         .font(.system(size: 73))
                         .foregroundColor(.white)
