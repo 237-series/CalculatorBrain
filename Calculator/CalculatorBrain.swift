@@ -31,13 +31,19 @@ class CalculatorModel: ObservableObject {
         return buttonCodeVertical
     }
     
+    
     func inputToken(input:String) {
         
         if let _ = Int(input) {
             inputDigit(input: input)
         }
         else {
+            if userIsInTheMiddleOfTyping, let value = Double(displayValue) {
+                setOperand(operand: value)
+                userIsInTheMiddleOfTyping = false
+            }
             performOperation(input)
+            displayValue = String(result)
         }
     }
     
